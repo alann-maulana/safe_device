@@ -43,14 +43,12 @@ class SafeDevice {
     if (Platform.isAndroid) {
       final bool isOnExternalStorage =
           await _channel.invokeMethod('isOnExternalStorage');
-      return isJailBroken ||
-              canMockLocation ||
-              !isRealDevice ||
-              isOnExternalStorage == true
-          ? false
-          : true;
+      return !(isJailBroken ||
+          canMockLocation ||
+          !isRealDevice ||
+          isOnExternalStorage == true);
     } else {
-      return isJailBroken || !isRealDevice || canMockLocation;
+      return !(isJailBroken || !isRealDevice || canMockLocation);
     }
   }
 
